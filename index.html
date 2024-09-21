@@ -9,38 +9,46 @@
 <body>
     <div class="container">
         <h1>予約システム</h1>
+
+        <!-- フォーム部分 -->
         <form id="submit-to-google-sheet">
             <label for="username">ユーザー名:</label>
             <input type="text" id="username" name="username" required>
             <button type="submit">予約する</button>
         </form>
 
-        <h2>予約番号一覧</h2>
-        <div id="reservation-list"></div>
-
+        <!-- 予約番号の表示部分（フォームのすぐ下） -->
         <div id="reservation-number"></div>
-        <div id="waiting-time"></div>
+
+        <!-- 予約番号一覧の表示 -->
+        <h2>これまでの予約番号一覧</h2>
+        <div id="reservation-list"></div>
     </div>
 
     <script>
+        // Google Apps ScriptのデプロイURL
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyl0I2u_N07OK2IC5eAtwPX1mO-EuZLWZLzcaEFyIODxbxCFFGG3UDab34jiwhqSO07/exec';
+        
+        // フォームと表示要素を取得
         const form = document.getElementById('submit-to-google-sheet');
         const reservationListDisplay = document.getElementById('reservation-list');
         const reservationNumberDisplay = document.getElementById('reservation-number');
 
+        // フォーム送信時の処理
         form.addEventListener('submit', e => {
             e.preventDefault();
             const formData = new FormData(form);
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => response.text())
                 .then(data => {
+                    // フォームのすぐ下に予約番号を表示
                     reservationNumberDisplay.textContent = `予約番号: ${data}`;
-                    fetchReservations(); // 予約後に予約一覧を更新
+                    fetchReservations(); // 予約番号一覧を更新
                 })
                 .catch(error => console.error('Error!', error.message));
         });
 
-        // 現在の予約番号一覧を取得して表示
+        // 予約番号一覧を取得して表示
         function fetchReservations() {
             fetch(scriptURL)
                 .then(response => response.json())
