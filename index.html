@@ -26,44 +26,34 @@
     </div>
 
     <script>
-        // Google Apps ScriptのデプロイURL
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyl0I2u_N07OK2IC5eAtwPX1mO-EuZLWZLzcaEFyIODxbxCFFGG3UDab34jiwhqSO07/exec';
-        
-        // フォームと表示要素を取得
         const form = document.getElementById('submit-to-google-sheet');
         const reservationListDisplay = document.getElementById('reservation-list');
         const reservationNumberDisplay = document.getElementById('reservation-number');
 
-        // フォーム送信時の処理
         form.addEventListener('submit', e => {
             e.preventDefault();
             const formData = new FormData(form);
             fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => response.text())
                 .then(data => {
-                    // フォームのすぐ下に予約番号を表示
                     reservationNumberDisplay.textContent = `予約番号: ${data}`;
                     fetchReservations(); // 予約番号一覧を更新
                 })
                 .catch(error => console.error('Error!', error.message));
         });
 
-        // 予約番号一覧を取得して表示
+        // 予約番号一覧を取得してカンマ区切りで表示
         function fetchReservations() {
             fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
-                    reservationListDisplay.innerHTML = ''; // 一旦リストをクリア
-                    data.forEach(reservation => {
-                        const reservationItem = document.createElement('div');
-                        reservationItem.textContent = `予約番号: ${reservation.reservationNumber}`;
-                        reservationListDisplay.appendChild(reservationItem);
-                    });
+                    const reservationNumbers = data.map(reservation => reservation.reservationNumber);
+                    reservationListDisplay.textContent = reservationNumbers.join(', '); // カンマ区切りで表示
                 })
                 .catch(error => console.error('Error fetching reservations!', error.message));
         }
 
-        // ページロード時に予約一覧を取得
         window.onload = fetchReservations;
     </script>
 </body>
