@@ -9,43 +9,54 @@
 <body>
     <div class="container">
         <h1>予約システム</h1>
-        <form name="submit-to-google-sheet">
+        <form id="submit-to-google-sheet">
             <label for="username">ユーザー名:</label>
             <input type="text" id="username" name="username" required>
             <button type="submit">予約する</button>
         </form>
+
+        <h2>予約番号一覧</h2>
+        <div id="reservation-list"></div>
+
         <div id="reservation-number"></div>
         <div id="waiting-time"></div>
     </div>
 
-    <!-- JavaScriptのfetchリクエストの部分をここに追加します -->
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyl0I2u_N07OK2IC5eAtwPX1mO-EuZLWZLzcaEFyIODxbxCFFGG3UDab34jiwhqSO07/exec';
-        const form = document.forms['submit-to-google-sheet'];
+        const form = document.getElementById('submit-to-google-sheet');
+        const reservationListDisplay = document.getElementById('reservation-list');
         const reservationNumberDisplay = document.getElementById('reservation-number');
-        const waitingTimeDisplay = document.getElementById('waiting-time');
 
         form.addEventListener('submit', e => {
             e.preventDefault();
-            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            const formData = new FormData(form);
+            fetch(scriptURL, { method: 'POST', body: formData })
                 .then(response => response.text())
                 .then(data => {
-                    // Google Apps Scriptから返される予約番号を表示
                     reservationNumberDisplay.textContent = `予約番号: ${data}`;
-                    fetchWaitingTime();
+                    fetchReservations(); // 予約後に予約一覧を更新
                 })
                 .catch(error => console.error('Error!', error.message));
         });
 
-        function fetchWaitingTime() {
-            const apiURL = 'https://sheets.googleapis.com/v4/spreadsheets/YOUR_SPREADSHEET_ID/values/Sheet1!A1:D10?key=YOUR_API_KEY';
-            fetch(apiURL)
+        // 現在の予約番号一覧を取得して表示
+        function fetchReservations() {
+            fetch(scriptURL)
                 .then(response => response.json())
                 .then(data => {
-                    let waitingTime = data.values.length * 10;  // 予約者数に基づいて待ち時間を計算（1人10分）
-                    waitingTimeDisplay.textContent = `待ち時間: ${waitingTime}分`;
-                });
+                    reservationListDisplay.innerHTML = ''; // 一旦リストをクリア
+                    data.forEach(reservation => {
+                        const reservationItem = document.createElement('div');
+                        reservationItem.textContent = `予約番号: ${reservation.reservationNumber}`;
+                        reservationListDisplay.appendChild(reservationItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching reservations!', error.message));
         }
+
+        // ページロード時に予約一覧を取得
+        window.onload = fetchReservations;
     </script>
 </body>
 </html>
