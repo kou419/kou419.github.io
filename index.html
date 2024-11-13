@@ -23,27 +23,42 @@
         <!-- 予約番号一覧の表示 -->
         <h2>これまでの予約番号一覧</h2>
         <div id="reservation-list"></div>
-
     </div>
 
-    <section>
-    <div class="login">
-        <h2>Sign In</h2>
-        <div class="inputBox">
-            <input type="text" placeholder="Username">
-        </div>
-        <div class="inputBox">
-            <input type="passwword" placeholder="Password">
-        </div>
-        <div class ="inputBox">
-            <input type="submit" value="login" id="btn">
-        </div>
-        <div class="grounp">
-            <a href="#"> Forget Password</a>  
-            <a href="3"> Sign Up</a>  
-        </div>
-    </div>
-    </section>
+
+    <form class ="container">
+        <h1 class ="Login-title">ログイン</h1>
+
+        <section class ="input-box">
+            <input type="text" name="username" placeholder="Username">
+            <i class='bx bxs-user'></i>
+        </section>
+        <section class ="input-box">
+            <input type="password" name="password" placeholder="Password">
+            <i class='bx bxs-lock-alt'></i>
+        </section>
+
+        <section class ="remember-forgot-box">
+            <div>
+                <input type="checkbox" name="remember-me" id="remember-me">
+                <label for="remember-me">
+                    <h5>Remember me</h5>
+                </label>    
+            </div>
+            <a class ="forgot-password" type="#">
+                <h5>Forgot password?</h5>
+            </a>
+        </section>
+
+        <button class="Login-button" type="submit">
+            Login
+        </button>
+
+        <h5 class="dont-have-an-account">
+            Don't have an account?
+            <a href="#"><b>Register</b></a>
+        </h5>
+    </form>
 
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbyl0I2u_N07OK2IC5eAtwPX1mO-EuZLWZLzcaEFyIODxbxCFFGG3UDab34jiwhqSO07/exec';
