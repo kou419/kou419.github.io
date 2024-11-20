@@ -11,12 +11,10 @@
         <h1>予約システム</h1>
 
         <!-- フォーム部分 -->
-        <form id="submit-to-google-sheet">
-            <label for="username">予約者ニックネーム:</label>
-            <input type="text" id="username" name="username" required>
-            <button type="submit">予約する</button>
+        <form id="submit-to-google-sheet" class="input-box">
+            <input type="text" id="username" name="username" placeholder="予約者のニックネーム"  required>
         </form>
-
+			<button type="submit" >予約する</button>
         <!-- 予約番号の表示部分（フォームのすぐ下） -->
         <div id="reservation-number"></div>
 
@@ -28,7 +26,6 @@
 
     <form class ="container">
         <h1 class ="Login-title">ログイン</h1>
-
         <section class ="input-box">
             <input type="text" name="username" placeholder="Username">
             <i class='bx bxs-user'></i>
@@ -38,19 +35,7 @@
             <i class='bx bxs-lock-alt'></i>
         </section>
 
-        <section class ="remember-forgot-box">
-            <div>
-                <input type="checkbox" name="remember-me" id="remember-me">
-                <label for="remember-me">
-                    <h5>Remember me</h5>
-                </label>    
-            </div>
-            <a class ="forgot-password" type="#">
-                <h5>Forgot password?</h5>
-            </a>
-        </section>
-
-        <button class="Login-button" type="submit">
+        <button class="login-button" type="submit">
             Login
         </button>
 
