@@ -20,7 +20,7 @@ header {
 
 header nav {
     display: flex;
-    justify-content: center;   
+    justify-content: center; 
    
 }
 
@@ -57,19 +57,20 @@ form {
 	width: 80%;
     align-items: center;
     margin-bottom: 20px;
-    margin:10px auto;
+    margin: 30px auto;
     padding: 10px;
-    border: 2px solid #ddddddf3;
+    border: 2px solid #a58cebf3;
     border-radius: 8px;
 }
 
 .input-box input[type="text"],
 .input-box input[type="password"] {
-    width: 50%;
-    padding: 5px;
+    width: 100%;
+    padding: 10px;
     border: none;
     outline: none;
     font-size: 16px;
+    border-radius: 10px;
 }
 .reservation-button {
 	width: 60%;
@@ -83,8 +84,12 @@ form {
 	outline: transparent 3px solid;
 	transition:0.1s;
 }
-.login-button:focus {
-	outline: #32CDD58A 3px solid;
+.reservation-button:focus {
+	outline: #9d60ee8a 3px solid;
+}
+
+.reservation-button:hover {
+    color: rgb(191, 152, 255);
 }
 
 
