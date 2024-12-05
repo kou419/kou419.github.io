@@ -14,22 +14,43 @@
             <div type="waiting-time">あなたの待ち時間</div>
         </nav>
     </header>
+    <main>
+        <div class="container">
+            <!-- フォーム部分 -->
+            <form id="reservationForm" >
+                <div class="input-box">
+                    <input type="text" id="username" name="username" placeholder="予約者のニックネーム" required>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" name="password" placeholder="パスワード" required>
+                </div>
+                    <button type="submit" class="reservation-button">予約する</button>
+            </form>
+                <!-- 予約番号の表示部分（フォームのすぐ下） -->
+                <div id="reservation-number"></div>
+        </div>
 
-    <div class="container">
-        <!-- フォーム部分 -->
-        <form id="reservationForm" >
-            <div class="input-box">
-              <input type="text" id="username" name="username" placeholder="予約者のニックネーム" required>
+    </main>
+        <div id="sidebar">
+            <div class="toggle-btn" onclick="toggleSidebar(this)">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            <div class="input-box">
-              <input type="password" id="password" name="password" placeholder="パスワード" required>
+            <div class="list">
+                <div class="item">Home</div>
+                <div class="item">36HR</div>
+                <div class="item">Help</div>
             </div>
-            <button type="submit" class="reservation-button">予約する</button>
-          </form>
-		<!-- 予約番号の表示部分（フォームのすぐ下） -->
-        <div id="reservation-number"></div>
-        
+        </div>
     <script>
+
+        function toggleSidebar(ref){
+            document.getElementById("sidebar").classList.toggle('active');
+        }
+
+
+
         const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyl0I2u_N07OK2IC5eAtwPX1mO-EuZLWZLzcaEFyIODxbxCFFGG3UDab34jiwhqSO07/exec';
 
         document.getElementById('reservationForm').addEventListener('submit', async (e) => {
