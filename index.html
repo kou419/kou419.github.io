@@ -11,7 +11,7 @@
         <nav>
             <div>掛川西</div>
             <div>36HR</div>
-            <div type="waiting-time">あなたの待ち時間</div>
+            <div type="waiting-time">あなたの待ち時間 00:00</div>
         </nav>
     </header>
     <main>
@@ -28,6 +28,11 @@
             </form>
                 <!-- 予約番号の表示部分（フォームのすぐ下） -->
                 <div id="reservation-number"></div>
+        </div>
+
+        <div class="show-reservationNumber">
+            <h2>あなたの予約番号<br></h2>
+            <div id="reservation-number">0</div>
         </div>
 
     </main>
@@ -49,8 +54,6 @@
             document.getElementById("sidebar").classList.toggle('active');
         }
 
-
-
         const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyl0I2u_N07OK2IC5eAtwPX1mO-EuZLWZLzcaEFyIODxbxCFFGG3UDab34jiwhqSO07/exec';
 
         document.getElementById('reservationForm').addEventListener('submit', async (e) => {
@@ -66,6 +69,8 @@
         formData.append('password', password);
 
         console.log('フォームデータ:', formData); // レスポンス確認
+        console.log('username' , username)
+        console.log('password' , password)
 
         try {
                 // データをGASに送信
