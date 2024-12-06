@@ -16,8 +16,10 @@
     </header>
     <main>
         <div class="container">
+          
             <!-- フォーム部分 -->
             <form id="reservationForm" >
+                <div class="reservation-Form-title">予約フォーム</div>
                 <div class="input-box">
                     <input type="text" id="username" name="username" placeholder="予約者のニックネーム" required>
                 </div>
@@ -26,8 +28,6 @@
                 </div>
                     <button type="submit" class="reservation-button">予約する</button>
             </form>
-                <!-- 予約番号の表示部分（フォームのすぐ下） -->
-                <div id="reservation-number-display"></div>
         </div>
 
         <div class="show-reservationNumber">
@@ -84,21 +84,21 @@
                 if (response.ok) {
                 const result = await response.json(); // JSON形式としてレスポンスを解析
 
-                if (result.reservationNumber) {
+                if (result.latestReservationNumber) {
                     document.getElementById('reservation-number-display').innerText = 
-                        `予約が完了しました！予約番号: ${result.reservationNumber}`;
-                        console.log('予約番号',result.reservationNumber);
+                        result.latestReservationNumber;
+                        console.log('予約番号',result.latestReservationNumber);
                 } else if (result.error) {
-                    document.getElementById('reservation-number').innerText = 
+                    document.getElementById('reservation-number-display').innerText = 
                         `エラー: ${result.error}`; // エラーの場合もJSONのerrorフィールドを表示
                 }
                 } else {
-                    document.getElementById('reservation-number').innerText = 
+                    document.getElementById('reservation-number-display').innerText = 
                         '予約に失敗しました。サーバーエラーです。';
                 }
             } catch (error) {
                 console.error('通信エラー:', error);
-                document.getElementById('reservation-number').innerText = 
+                document.getElementById('reservation-number-display').innerText = 
                     'エラーが発生しました。もう一度お試しください。';
             }
         })
