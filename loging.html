@@ -1,1 +1,28 @@
-
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>予約システム</title>
+    <link rel="stylesheet" href="login_style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div>掛川西</div>
+            <div>36HR</div>
+            <div type="waiting-time">あなたの待ち時間 00:00</div>
+        </nav>
+    </header>
+    <main>
+        <form class="login-form">
+            <div class="input-login-box">
+                <input type="text" id="username" name="username" placeholder="予約者のニックネーム" required>
+            </div>
+            <div class="input-login-box">
+                <input type="text" id="password" name="password" placeholder="予約者のパスワード" required>
+            </div>
+            <button type="submit" class="login-button">ログインする</button>
+        </form>
+    </main>
+</body>
