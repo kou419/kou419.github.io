@@ -31,7 +31,8 @@ header nav div {
 }
 
 /* コンテナ */
-.container {
+.container,
+.show-reservationNumber{
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
@@ -50,6 +51,10 @@ h1, h2 {
 form {
     margin-bottom: 20px;
     backdrop-filter: blur(1px);
+}
+
+.reservation-Form-title{
+    font-size: 30px;
 }
 
 .input-box {
@@ -91,6 +96,11 @@ form {
 .reservation-button:hover {
     color: rgb(191, 152, 255);
 }
+
+.show-reservationNumber div {
+    font-size: 100px;
+}
+
 
 *{
     margin: 0px;
