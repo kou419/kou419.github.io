@@ -27,12 +27,12 @@
                     <button type="submit" class="reservation-button">予約する</button>
             </form>
                 <!-- 予約番号の表示部分（フォームのすぐ下） -->
-                <div id="reservation-number"></div>
+                <div id="reservation-number-display"></div>
         </div>
 
         <div class="show-reservationNumber">
             <h2>あなたの予約番号<br></h2>
-            <div id="reservation-number">0</div>
+            <div id="reservation-number-display"></div>
         </div>
 
     </main>
@@ -45,6 +45,7 @@
             <div class="list">
                 <div class="item">Home</div>
                 <div class="item">36HR</div>
+                <a href="https://kou419.github.io/login.html" class="item">ログインする</a>
                 <div class="item">Help</div>
             </div>
         </div>
@@ -54,7 +55,7 @@
             document.getElementById("sidebar").classList.toggle('active');
         }
 
-        const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbyl0I2u_N07OK2IC5eAtwPX1mO-EuZLWZLzcaEFyIODxbxCFFGG3UDab34jiwhqSO07/exec';
+        const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbynz8AcqNKnncLCAPMZPDIntlfGb_3Xs0-7uQgaLOcMCMoGtXFcXy4CNgBloASKaoa-/exec';
 
         document.getElementById('reservationForm').addEventListener('submit', async (e) => {
         e.preventDefault(); // ページリロードを防ぐ
@@ -84,8 +85,9 @@
                 const result = await response.json(); // JSON形式としてレスポンスを解析
 
                 if (result.reservationNumber) {
-                    document.getElementById('reservation-number').innerText = 
+                    document.getElementById('reservation-number-display').innerText = 
                         `予約が完了しました！予約番号: ${result.reservationNumber}`;
+                        console.log('予約番号',result.reservationNumber);
                 } else if (result.error) {
                     document.getElementById('reservation-number').innerText = 
                         `エラー: ${result.error}`; // エラーの場合もJSONのerrorフィールドを表示
