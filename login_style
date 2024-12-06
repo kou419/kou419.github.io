@@ -1,0 +1,88 @@
+/* 全体の基本スタイル */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+
+    background-image: url('Kakegawanishi.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+header {
+    width: 100%;
+    height: 50px;
+    margin: 0 auto 44px;
+    background-color: #000000;
+}
+
+header nav {
+    display: flex;
+    justify-content: center; 
+   
+}
+
+header nav div {
+   color: #ffffff;
+   margin: 10px 20px; 
+   align-items: center;
+}
+
+.login-form {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.50);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* フォームのスタイル */
+form {
+    margin-bottom: 2%;
+    backdrop-filter: blur(1px);
+}
+
+.input-login-box {
+    display: flex;
+	width: 80%;
+    align-items: center;
+    margin-bottom: 20px;
+    margin: 30px auto;
+    padding: 10px;
+    border: 2px solid #a58cebf3;
+    border-radius: 8px;
+}
+
+.input-login-box input[type="text"],
+.input-login-box input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    border-radius: 10px;
+}
+.login-button {
+	width: 60%;
+	margin-top: 24px;
+	padding: 10px 0;
+	border:none;
+	border-radius:99px;
+	font-weight:bold;
+	font-size:15px;
+	cursor:pointer;
+	outline: transparent 3px solid;
+	transition:0.1s;
+}
+.login-button:focus {
+	outline: #9d60ee8a 3px solid;
+}
+
+.login-button:hover {
+    color: rgb(191, 152, 255);
+    background-color: #f7f0ff;
+}
