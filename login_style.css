@@ -86,3 +86,20 @@ form {
     color: rgb(191, 152, 255);
     background-color: #f7f0ff;
 }
+
+.show-result{
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.50);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.show-result > #result-success{
+    font-size: 100px;
+}
+.show-result > #result-erro{
+    font-size: 20px;
+}
