@@ -66,6 +66,7 @@
        
         // 送信データを準備
         const formData = new FormData();
+        formData.append('action', 'reserve'); // ログインを指定
         formData.append('username', username);
         formData.append('password', password);
 
@@ -84,13 +85,13 @@
                 if (response.ok) {
                 const result = await response.json(); // JSON形式としてレスポンスを解析
 
-                if (result.latestReservationNumber) {
+                if (result.reservationNumber) {
                     document.getElementById('reservation-number-display').innerText = 
-                        result.latestReservationNumber;
-                        console.log('予約番号',result.latestReservationNumber);
+                        result.reservationNumber;
+                        console.log('予約番号',result.reservationNumber);
                 } else if (result.error) {
                     document.getElementById('reservation-number-display').innerText = 
-                        `エラー: ${result.error}`; // エラーの場合もJSONのerrorフィールドを表示
+                    result.error; // エラーの場合もJSONのerrorフィールドを表示
                 }
                 } else {
                     document.getElementById('reservation-number-display').innerText = 
