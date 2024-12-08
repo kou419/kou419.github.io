@@ -1,93 +1,145 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>予約システム</title>
-    <link rel="stylesheet" href="login_style.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <div>掛川西</div>
-            <div>36HR</div>
-            <div type="waiting-time">あなたの待ち時間 00:00</div>
-        </nav>
-    </header>
-    <main>
-        <form id="login-form" class="login-form">
-            <div class="input-login-box">
-                <input type="text" id="username" name="username" placeholder="予約者のニックネーム" required>
-            </div>
-            <div class="input-login-box">
-                <input type="password" id="password" name="password" placeholder="予約者のパスワード" required>
-            </div>
-            <button type="submit" class="login-button">ログインする</button>
-        </form>
+/* 全体の基本スタイル */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
 
-        <div class="show-result">
-            <h2>あなたの予約番号<br></h2>
-            <div id="result-success" class="result-success"></div>
-            <div id="result-erro" class="result-erro"></div>
-        </div>
+    background-image: url('Kakegawanishi.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
+header {
+    width: 100%;
+    height: 50px;
+    margin: 0 auto 44px;
+    background-color: #000000;
+}
 
-    </main>
-    <div id="sidebar">
-        <div class="toggle-btn" onclick="toggleSidebar(this)">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="list">
-            <div class="item">Home</div>
-            <div class="item">36HR</div>
-            <a href="https://kou419.github.io/index.html" class="item">予約する</a>
-            <div class="item">Help</div>
-        </div>
-    </div>
+header nav {
+    display: flex;
+    justify-content: center; 
+   
+}
 
-    <script>
-        function toggleSidebar(ref){
-            document.getElementById("sidebar").classList.toggle('active');
-        }
+header nav div {
+   color: #ffffff;
+   margin: 10px 20px; 
+   align-items: center;
+}
 
-           const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbynz8AcqNKnncLCAPMZPDIntlfGb_3Xs0-7uQgaLOcMCMoGtXFcXy4CNgBloASKaoa-/exec';
+.login-form {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.50);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
 
-        document.getElementById('login-form').addEventListener('submit', async (e) => {
-          e.preventDefault();
-      
-          const username = document.getElementById('username').value;
-          const password = document.getElementById('password').value;
-      
-          const formData = new FormData();
-          formData.append('action', 'login'); // ログインを指定
-          formData.append('username', username);
-          formData.append('password', password);
-      
-          try {
-            const response = await fetch(GAS_API_URL, {
-              method: 'POST',
-              body: formData
-            });
-      
-            if (response.ok) {
-              const result = await response.json();
-              if (result.reservationNumber) {
-                document.getElementById('result-success').innerText = 
-                  result.reservationNumber;
-              } else if (result.error) {
-                document.getElementById('result-erro').innerText = result.error;
-              }
-            } else {
-              document.getElementById('result').innerText = 
-                'サーバーエラーが発生しました。';
-            }
-          } catch (error) {
-            console.error('通信エラー:', error);
-            document.getElementById('result').innerText = 
-              '通信エラーが発生しました。';
-          }
-        });
-      </script>      
-</body>
+/* フォームのスタイル */
+form {
+    margin-bottom: 2%;
+    backdrop-filter: blur(1px);
+}
+
+.input-login-box {
+    display: flex;
+	width: 80%;
+    align-items: center;
+    margin-bottom: 20px;
+    margin: 30px auto;
+    padding: 10px;
+    border: 2px solid #a58cebf3;
+    border-radius: 8px;
+}
+
+.input-login-box input[type="text"],
+.input-login-box input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    border-radius: 10px;
+}
+.login-button {
+	width: 60%;
+	margin-top: 24px;
+	padding: 10px 0;
+	border:none;
+	border-radius:99px;
+	font-weight:bold;
+	font-size:15px;
+	cursor:pointer;
+	outline: transparent 3px solid;
+	transition:0.1s;
+}
+.login-button:focus {
+	outline: #9d60ee8a 3px solid;
+}
+
+.login-button:hover {
+    color: rgb(191, 152, 255);
+    background-color: #f7f0ff;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+#sidebar {
+    position: absolute;
+    top: 0px;
+    left: -200px;
+    width: 200px;
+    height: 100%;
+    background: #ffffff;
+    transition: all 300ms linear;
+}
+#sidebar.active {
+    left: 0px;
+}
+#sidebar .toggle-btn {
+    position: absolute;
+    left: 220px;
+    top: 10px;
+}
+#sidebar .toggle-btn span {
+    display: block;
+    width: 30px;
+    height: 5px;
+    background: #ffffff;
+    margin: 5px 0px;
+    cursor: pointer;
+}
+#sidebar div.list div.item {
+    padding: 15px 10px;
+    border-bottom:1px  solid #444;
+    color: #000000;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.show-result{
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.50);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.show-result > #result-success{
+    font-size: 100px;
+}
+.show-result > #result-erro{
+    font-size: 20px;
+}
