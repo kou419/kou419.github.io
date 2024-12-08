@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>予約システム</title>
     <link rel="stylesheet" href="login_style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
     <header>
@@ -28,7 +29,10 @@
         <div class="show-result">
             <h2>あなたの予約番号<br></h2>
             <div id="result-success" class="result-success"></div>
-            <div id="result-erro" class="result-erro"></div>
+            <div id="result-error" class="result-error"></div>
+
+            <h1>QRコード生成</h1>
+            <div id="qrcode"></div>
         </div>
 
 
@@ -59,6 +63,9 @@
       
           //ボタンを取得
           const loginButton = document.querySelector('.login-button');
+          //メッセージを取得
+          const result_success = document.querySelector('.result-success');
+          const result_error = document.querySelector('.result-error')
           //入力データを取得
           const username = document.getElementById('username').value;
           const password = document.getElementById('password').value;
@@ -72,6 +79,9 @@
           try {
                 loginButton.disabled = true;
                 loginButton.textContent = '送信中...';
+                //メッセージをクリア
+                result_success.textContent ='';
+                result_error.textContent ='';
 
                 const response = await fetch(GAS_API_URL, {
                   method: 'POST',
@@ -80,11 +90,28 @@
           
                 if (response.ok) {
                   const result = await response.json();
+
+                   // QRコード用のデータを生成
+                const qrData = {
+                    username: username,
+                    password: password,
+                    reservationNumber: result.reservationNumber,
+                };
+
+                // QRコードを生成
+                const qrcodeContainer = document.getElementById("qrcode");
+                qrcodeContainer.innerHTML = ""; // 既存のQRコードをクリア
+                new QRCode(qrcodeContainer, {
+                    text: JSON.stringify(qrData),
+                    width: 128,
+                    height: 128,
+                });
+
                   if (result.reservationNumber) {
                     document.getElementById('result-success').innerText = 
                     result.reservationNumber;
                   } else if (result.error) {
-                    document.getElementById('result-erro').innerText = result.error;
+                    document.getElementById('result-error').innerText = result.error;
                   }
                 } else {
                   document.getElementById('result').innerText = 
