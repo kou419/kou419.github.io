@@ -141,6 +141,6 @@ form {
 .show-result > #result-success{
     font-size: 100px;
 }
-.show-result > #result-erro{
+.show-result > #result-error{
     font-size: 20px;
 }
