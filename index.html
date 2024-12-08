@@ -32,7 +32,8 @@
 
         <div class="show-reservationNumber">
             <h2>あなたの予約番号<br></h2>
-            <div id="reservation-number-display"></div>
+            <div id="reservation-number-display" class="reservation-number-display"></div>
+            <div id="reservation-number-error" class="reservation-number-error"></div>
         </div>
 
     </main>
@@ -60,6 +61,8 @@
         document.getElementById('reservationForm').addEventListener('submit', async (e) => {
         e.preventDefault(); // ページリロードを防ぐ
 
+        //ボタンを取得
+        const submitButton = document.querySelector('.reservation-button');
         // 入力データを取得
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
@@ -75,6 +78,9 @@
         console.log('password' , password)
 
         try {
+                submitButton.disabled = true;
+                submitButton.textContent = '送信中...';
+
                 // データをGASに送信
                 const response = await fetch(GAS_API_URL, {
                 method: 'POST',
@@ -90,17 +96,21 @@
                         result.reservationNumber;
                         console.log('予約番号',result.reservationNumber);
                 } else if (result.error) {
-                    document.getElementById('reservation-number-display').innerText = 
+                    document.getElementById('reservation-number-error').innerText = 
                     result.error; // エラーの場合もJSONのerrorフィールドを表示
                 }
                 } else {
-                    document.getElementById('reservation-number-display').innerText = 
+                    document.getElementById('reservation-number-error').innerText = 
                         '予約に失敗しました。サーバーエラーです。';
                 }
             } catch (error) {
                 console.error('通信エラー:', error);
-                document.getElementById('reservation-number-display').innerText = 
+                document.getElementById('reservation-number-error').innerText = 
                     'エラーが発生しました。もう一度お試しください。';
+            } finally {
+                //予約ボタンの再度有効化
+                submitButton.disabled = false;
+                submitButton.textContent = '予約する';
             }
         })
     </script>
