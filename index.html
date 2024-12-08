@@ -63,6 +63,9 @@
 
         //ボタンを取得
         const submitButton = document.querySelector('.reservation-button');
+        //メッセージを取得
+        const reservation_number_display = document.querySelector('.reservation-number-display');
+        const reservation_number_error = document.querySelector('.reservation-number-error')
         // 入力データを取得
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
@@ -80,6 +83,9 @@
         try {
                 submitButton.disabled = true;
                 submitButton.textContent = '送信中...';
+                //メッセージをクリア
+                reservation_number_display.textContent ='';
+                reservation_number_error.textContent ='';
 
                 // データをGASに送信
                 const response = await fetch(GAS_API_URL, {
