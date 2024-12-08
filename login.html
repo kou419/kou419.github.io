@@ -33,8 +33,25 @@
 
 
     </main>
+    <div id="sidebar">
+        <div class="toggle-btn" onclick="toggleSidebar(this)">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="list">
+            <div class="item">Home</div>
+            <div class="item">36HR</div>
+            <a href="https://kou419.github.io/index.html" class="item">予約する</a>
+            <div class="item">Help</div>
+        </div>
+    </div>
 
     <script>
+        function toggleSidebar(ref){
+            document.getElementById("sidebar").classList.toggle('active');
+        }
+
            const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbynz8AcqNKnncLCAPMZPDIntlfGb_3Xs0-7uQgaLOcMCMoGtXFcXy4CNgBloASKaoa-/exec';
 
         document.getElementById('login-form').addEventListener('submit', async (e) => {
