@@ -15,14 +15,62 @@
         </nav>
     </header>
     <main>
-        <form class="login-form">
+        <form id="login-form" class="login-form">
             <div class="input-login-box">
                 <input type="text" id="username" name="username" placeholder="予約者のニックネーム" required>
             </div>
             <div class="input-login-box">
-                <input type="text" id="password" name="password" placeholder="予約者のパスワード" required>
+                <input type="password" id="password" name="password" placeholder="予約者のパスワード" required>
             </div>
             <button type="submit" class="login-button">ログインする</button>
         </form>
+
+        <div class="show-result">
+            <h2>あなたの予約番号<br></h2>
+            <div id="result-success" class="result-success"></div>
+            <div id="result-erro" class="result-erro"></div>
+        </div>
+
+
     </main>
+
+    <script>
+           const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbynz8AcqNKnncLCAPMZPDIntlfGb_3Xs0-7uQgaLOcMCMoGtXFcXy4CNgBloASKaoa-/exec';
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+          e.preventDefault();
+      
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+      
+          const formData = new FormData();
+          formData.append('action', 'login'); // ログインを指定
+          formData.append('username', username);
+          formData.append('password', password);
+      
+          try {
+            const response = await fetch(GAS_API_URL, {
+              method: 'POST',
+              body: formData
+            });
+      
+            if (response.ok) {
+              const result = await response.json();
+              if (result.reservationNumber) {
+                document.getElementById('result-success').innerText = 
+                  result.reservationNumber;
+              } else if (result.error) {
+                document.getElementById('result-erro').innerText = result.error;
+              }
+            } else {
+              document.getElementById('result').innerText = 
+                'サーバーエラーが発生しました。';
+            }
+          } catch (error) {
+            console.error('通信エラー:', error);
+            document.getElementById('result').innerText = 
+              '通信エラーが発生しました。';
+          }
+        });
+      </script>      
 </body>
