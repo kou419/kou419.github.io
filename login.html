@@ -114,16 +114,17 @@
                     document.getElementById('result-error').innerText = result.error;
                   }
                 } else {
-                  document.getElementById('result').innerText = 
+                  document.getElementById('result-error').innerText = 
                     'サーバーエラーが発生しました。';
                 }
               } catch (error) {
                 console.error('通信エラー:', error);
-                document.getElementById('result').innerText = 
+                document.getElementById('result-error').innerText = 
                   '通信エラーが発生しました。';
               }finally{
                 loginButton.disabled = false;
                 loginButton.textContent = 'ログイン';
+
               }
         });
       </script>      
