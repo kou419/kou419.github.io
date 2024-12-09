@@ -99,13 +99,13 @@
                 };
 
                 // QRコードを生成
-                const qrcodeContainer = document.getElementById("qrcode");
-                qrcodeContainer.innerHTML = ""; // 既存のQRコードをクリア
-                new QRCode(qrcodeContainer, {
-                    text: JSON.stringify(qrData),
-                    width: 128,
-                    height: 128,
-                });
+                //const qrcodeContainer = document.getElementById("qrcode");
+                //qrcodeContainer.innerHTML = ""; // 既存のQRコードをクリア
+                //new QRCode(qrcodeContainer, {
+                //    text: JSON.stringify(qrData),
+                //    width: 128,
+                //    height: 128,
+                //});
 
                   if (result.reservationNumber) {
                     document.getElementById('result-success').innerText = 
