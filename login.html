@@ -58,6 +58,41 @@
 
         const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbynz8AcqNKnncLCAPMZPDIntlfGb_3Xs0-7uQgaLOcMCMoGtXFcXy4CNgBloASKaoa-/exec';
 
+         // Cookieを取得する関数
+        function getCookie(name) {
+          // cookieをデコードして「;」区切りの配列にする
+          const decodedCookie = decodeURIComponent(document.cookie);
+          const ca = decodedCookie.split(';');
+        
+          const prefix = name + "=";
+        
+          // 配列の中から該当するキーのCookieを探して返す
+          for (let i = 0; i < ca.length; i++) {
+            let c = ca[i].trim();
+            if (c.indexOf(prefix) === 0) {
+              // 「キー=値」から値の部分だけ切り出し
+              return c.substring(prefix.length, c.length);
+            }
+          }
+          return "";
+        }
+                  
+        // ②ページ読み込み時にCookieをフォームに自動入力
+        window.addEventListener('DOMContentLoaded', () => {
+        const savedUsername = getCookie('username');
+        const savedPassword = getCookie('password');
+          
+            if (savedUsername) {
+              document.getElementById('username').value = savedUsername;
+            }
+            if (savedPassword) {
+              document.getElementById('password').value = savedPassword;
+            }
+          });
+
+
+
+
         document.getElementById('login-form').addEventListener('submit', async (e) => {
           e.preventDefault();
       
