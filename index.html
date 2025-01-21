@@ -57,6 +57,49 @@
         }
 
         const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbynz8AcqNKnncLCAPMZPDIntlfGb_3Xs0-7uQgaLOcMCMoGtXFcXy4CNgBloASKaoa-/exec';
+        
+        // Cookieをセットする関数
+        function setCookie(name, value, days) {
+        const date = new Date();
+        // 有効期限(日数)を設定
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+
+        // Cookieを書き込み
+        document.cookie = `${name}=${encodeURIComponent(value)}; ${expires}; path=/`;
+        }
+        
+        // Cookieを取得する関数
+        function getCookie(name) {
+          // cookieをデコードして「;」区切りの配列にする
+          const decodedCookie = decodeURIComponent(document.cookie);
+          const ca = decodedCookie.split(';');
+        
+          const prefix = name + "=";
+        
+          // 配列の中から該当するキーのCookieを探して返す
+          for (let i = 0; i < ca.length; i++) {
+            let c = ca[i].trim();
+            if (c.indexOf(prefix) === 0) {
+              // 「キー=値」から値の部分だけ切り出し
+              return c.substring(prefix.length, c.length);
+            }
+          }
+          return "";
+        }
+                  
+        // ②ページ読み込み時にCookieをフォームに自動入力
+        window.addEventListener('DOMContentLoaded', () => {
+        const savedUsername = getCookie('username');
+        const savedPassword = getCookie('password');
+          
+            if (savedUsername) {
+              document.getElementById('username').value = savedUsername;
+            }
+            if (savedPassword) {
+              document.getElementById('password').value = savedPassword;
+            }
+          });
 
         document.getElementById('reservationForm').addEventListener('submit', async (e) => {
         e.preventDefault(); // ページリロードを防ぐ
@@ -86,6 +129,10 @@
                 //メッセージをクリア
                 reservation_number_display.textContent ='';
                 reservation_number_error.textContent ='';
+           
+                // ④データ送信前にCookieへ保存（有効期限30日など任意指定）
+                setCookie('username', username, 30);
+                setCookie('password', password, 30);
 
                 // データをGASに送信
                 const response = await fetch(GAS_API_URL, {
